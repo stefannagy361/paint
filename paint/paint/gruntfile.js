@@ -14,7 +14,7 @@
 
     watch: {
       app: {
-        files: ['index.html', 'app/app.js'],
+        files: ['index.html', 'app/app.js', 'app/ShapeDrawer.js'],
         tasks: [],
         options: {
           livereload: 35729

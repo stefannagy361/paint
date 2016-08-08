@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\ShapeDrawer.js" />
     <Content Include="assets\css\main.css" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />
@@ -202,8 +203,6 @@
     <Content Include="bower_components\jquery\src\var\support.js" />
     <Content Include="bower_components\jquery\src\var\toString.js" />
     <Content Include="bower_components\jquery\src\wrap.js" />
-    <Content Include="bower_components\underscore\underscore-min.js" />
-    <Content Include="bower_components\underscore\underscore.js" />
     <Content Include="gruntfile.js" />
     <Content Include="index.html" />
     <Content Include="node_modules\bower\lib\commands\cache\clean.js" />
@@ -7205,11 +7204,6 @@
     <Content Include="bower_components\jquery\external\sizzle\dist\sizzle.min.map" />
     <Content Include="bower_components\jquery\README.md" />
     <Content Include="bower_components\jquery\src\.eslintrc" />
-    <Content Include="bower_components\underscore\.bower.json" />
-    <Content Include="bower_components\underscore\bower.json" />
-    <Content Include="bower_components\underscore\LICENSE" />
-    <Content Include="bower_components\underscore\README.md" />
-    <Content Include="bower_components\underscore\underscore-min.map" />
     <Content Include="node_modules\.bin\bower" />
     <Content Include="node_modules\.bin\bower.cmd" />
     <Content Include="node_modules\.bin\grunt" />
