@@ -34,6 +34,7 @@
       this.style.background = "#fff";
     else {
       buttonsOff();
+      turnMovableOff();
       this.style.background = "grey";
     }
   };
