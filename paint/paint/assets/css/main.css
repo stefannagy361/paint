@@ -5,11 +5,59 @@
   display: block;
   margin-top: 10px;
 }
-.glyphicon.glyphicon-circle {
-  margin-bottom: -0.8em;
-  overflow: hidden;
+.bordered {
+  width: 700px;
+  height: 650px;
+  border: 1px solid grey;
+  display: block;
+  margin-top: 10px;
 }
-.glyphicon.glyphicon-circle:before {
-  content: "\25cf";
-  font-size: 1.8em;
+.legend {
+  width: 70px;
+  height: 650px;
+}
+.margin {
+  margin-left: 30px;
+}
+.btn-color {
+  width: 20px;
+  height: 20px;
+}
+.btn-color.white {
+  background: white;
+}
+.btn-color.red {
+  background: red;
+}
+.btn-color.yellow {
+  background: yellow;
+}
+.btn-color.green {
+  background: green;
+}
+.btn-color.blue {
+  background: blue;
+}
+.btn-color.black {
+  background: black;
+}
+.info1 {
+  position: absolute;
+  top: 32%;
+  left: 25%;
+}
+.info2 {
+  position: absolute;
+  top: 19%;
+  left: 25%;
+}
+.info3 {
+  position: absolute;
+  top: 58%;
+  left: 25%;
+}
+.info4 {
+  position: absolute;
+  top: 45%;
+  left: 25%;
 }

@@ -1,10 +1,33 @@
 ﻿(function () {
-  var script = document.createElement('script');
-  script.src = "app/ShapeDrawer.js"
-  document.head.appendChild(script);
   document.getElementById("triangle").addEventListener("click", SelectButton);
   document.getElementById("circle").addEventListener("click", SelectButton);
   document.getElementById("rectangle").addEventListener("click", SelectButton);
+  document.getElementById("square").addEventListener("click", SelectButton);
+  document.getElementById("pencil").addEventListener("click", SelectButton);
+  document.getElementById("resizecircle").addEventListener("click", SelectButton);
+
+  document.getElementById("white").addEventListener("click", ColorButton);
+  document.getElementById("red").addEventListener("click", ColorButton);
+  document.getElementById("yellow").addEventListener("click", ColorButton);
+  document.getElementById("green").addEventListener("click", ColorButton);
+  document.getElementById("blue").addEventListener("click", ColorButton);
+  document.getElementById("black").addEventListener("click", ColorButton);
+
+  function ColorButton() {
+    if (this.style.border === "2px solid black")
+      this.style.border = "1px solid #ccc";
+
+    else
+    {
+      document.getElementById("white").style.border = "1px solid #ccc";
+      document.getElementById("red").style.border = "1px solid #ccc";
+      document.getElementById("yellow").style.border = "1px solid #ccc";
+      document.getElementById("green").style.border = "1px solid #ccc";
+      document.getElementById("blue").style.border = "1px solid #ccc";
+      document.getElementById("black").style.border = "1px solid #ccc";
+      this.style.border = "2px solid black";
+    }
+  }
 
   function SelectButton () {
     if (this.style.background === "grey")
@@ -13,35 +36,39 @@
       document.getElementById("triangle").style.background = "#fff";
       document.getElementById("circle").style.background = "#fff";
       document.getElementById("rectangle").style.background = "#fff";
+      document.getElementById("square").style.background = "#fff";
+      document.getElementById("pencil").style.background = "#fff";
+      document.getElementById("resizecircle").style.background = "#fff";
       this.style.background = "grey";
     }
   };
 
-  var context = document.getElementById("Paint").getContext("2d");
   var triangle = new Triangle();
-  document.getElementById("Paint").onclick = function (e) {
-    var x = e.pageX - this.offsetLeft;
-    var y = e.pageY - this.offsetTop;
+  var circle = new Circle();
+  var rectangle = new Rectangle();
+  var square = new Square();
+  document.getElementById("ShapeContainer").onclick = function (e) {
+    var clickX = e.pageX - this.offsetLeft;
+    var clickY = e.pageY - this.offsetTop;
 
-    context.beginPath();
     if (document.getElementById("triangle").style.background == "grey") {
-      triangle.DrawTriangle(x, y, context);
+      triangle.draw(clickX, clickY);
     }
     else
-      if (document.getElementById("circle").style.background == "grey")
-        DrawCircle(x, y, context);
+      if (document.getElementById("circle").style.background == "grey") {
+        circle.draw(clickX, clickY);
+      }
       else
-        if (document.getElementById("rectangle").style.background == "grey")
-          DrawRectangle(x, y, context);
-    context.fill();
-    context.stroke();
-  };
-
-  function DrawRectangle(x, y, context) {
-    context.strokeRect(x, y, 90, 60);
-  };
-
-  function DrawCircle(x, y, context) {
-    context.arc(x, y, 40, 0, 2 * Math.PI);
+        if (document.getElementById("rectangle").style.background == "grey") {
+          rectangle.draw(clickX, clickY);
+        }
+        else
+          if (document.getElementById("square").style.background == "grey") {
+            square.draw(clickX, clickY);
+          }
+          else
+            if (document.getElementById("square").style.background == "grey") {
+              circle.drawResize(clickX, clickY);
+            }
   };
 })();
