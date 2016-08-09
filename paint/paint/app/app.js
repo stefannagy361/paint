@@ -31,22 +31,30 @@
 
   function SelectButton () {
     if (this.style.background === "grey")
-      this.style = background = "#fff";
+      this.style.background = "#fff";
     else {
-      document.getElementById("triangle").style.background = "#fff";
-      document.getElementById("circle").style.background = "#fff";
-      document.getElementById("rectangle").style.background = "#fff";
-      document.getElementById("square").style.background = "#fff";
-      document.getElementById("pencil").style.background = "#fff";
-      document.getElementById("resizecircle").style.background = "#fff";
+      buttonsOff();
       this.style.background = "grey";
     }
   };
+
+  document.getElementById("move").onclick = function () {
+    if (this.style.background === 'grey') {
+      this.style.background = '#fff';
+      turnMovableOff();
+    }
+    else {
+      buttonsOff();
+      this.style.background = 'grey';
+      turnMovableOn();
+    }
+  }
 
   var triangle = new Triangle();
   var circle = new Circle();
   var rectangle = new Rectangle();
   var square = new Square();
+
   document.getElementById("ShapeContainer").onclick = function (e) {
     var clickX = e.pageX - this.offsetLeft;
     var clickY = e.pageY - this.offsetTop;
@@ -70,5 +78,15 @@
             if (document.getElementById("square").style.background == "grey") {
               circle.drawResize(clickX, clickY);
             }
+  };
+
+  function buttonsOff() {
+    document.getElementById("triangle").style.background = "#fff";
+    document.getElementById("circle").style.background = "#fff";
+    document.getElementById("rectangle").style.background = "#fff";
+    document.getElementById("square").style.background = "#fff";
+    document.getElementById("pencil").style.background = "#fff";
+    document.getElementById("resizecircle").style.background = "#fff";
+    document.getElementById("move").style.background = "#fff";
   };
 })();

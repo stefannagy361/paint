@@ -42,6 +42,8 @@ function Square() {
 
 Square.prototype = new Shape();
 
+var shapes = [];
+
 Square.prototype.draw = function (clickX, clickY) {
   this.x = clickX;
   this.y = clickY;
@@ -54,7 +56,7 @@ Square.prototype.draw = function (clickX, clickY) {
     height: RectHeight,
     stroke: 'black',
     strokeWidth: 2,
-    draggable: true
+    draggable: false
   });
 
   var that = this;
@@ -63,6 +65,7 @@ Square.prototype.draw = function (clickX, clickY) {
   });
 
   update(4);
+  shapes.push(square);
   layer.add(square);
   stage.add(layer);
 }
@@ -79,7 +82,7 @@ Rectangle.prototype.draw = function (clickX, clickY) {
     height: RectHeight,
     stroke: 'black',
     strokeWidth: 2,
-    draggable: true
+    draggable: false
 
   });
 
@@ -89,6 +92,7 @@ Rectangle.prototype.draw = function (clickX, clickY) {
   });
 
   update(3);
+  shapes.push(rectangle);
   layer.add(rectangle);
   stage.add(layer);
 }
@@ -102,15 +106,15 @@ Circle.prototype.draw = function (clickX, clickY) {
     radius: 70,
     stroke: 'black',
     strokeWidth: 2,
-    draggable: true
+    draggable: false
   });
-
   var that = this;
   circle.on('click', function () {
     that.color(this);
   });
 
   update(2);
+  shapes.push(circle);
   layer.add(circle);
   stage.add(layer);
 }
@@ -136,7 +140,7 @@ Triangle.prototype.draw = function(clickX, clickY){
       stroke: 'black',
       strokewidth: 1,
       closed: true,
-      draggable: true
+      draggable: false
     });
     var that = this;
     triangle.on('click', function () {
@@ -144,6 +148,7 @@ Triangle.prototype.draw = function(clickX, clickY){
     });
     layer.add(triangle);
     stage.add(layer);
+    shapes.push(triangle);
     corners = 0;
     update(1);
   }
@@ -154,28 +159,6 @@ Shape.prototype.color = function (shape) {
     shape.fill(getColorButton());
     layer.draw();
   }
-}
-
-function drawLine(x1, y1, x2, y2) {
-  var line = new Konva.Line({
-    points: [x1, y1, x2, y2],
-    stroke: 'black',
-    strokewidth: 1
-  });
-  layer.add(line);
-  stage.add(layer);
-}
-
-function drawPoint(pointx, pointy) {
-  var circle = new Konva.Circle({
-    x: pointx,
-    y: pointy,
-    radius: 1,
-    stroke: 'black',
-    strokeWidth: 1
-  });
-  layer.add(circle);
-  stage.add(layer);
 }
 
 function getColorButton() {
@@ -203,6 +186,8 @@ function buttonsNotSelected() {
   if (document.getElementById("rectangle").style.background === "grey")
     return false;
   if (document.getElementById("square").style.background === "grey")
+    return false;
+  if (document.getElementById("resizecircle").style.background === "grey")
     return false;
   return true;
 }
@@ -238,6 +223,18 @@ document.getElementById("delete").onclick = function () {
   layer.destroy();
 }
 
+function turnMovableOn() {
+  shapes.forEach(function (shape) {
+    shape.setDraggable(true);
+  });
+}
+
+function turnMovableOff() {
+  shapes.forEach(function (shape) {
+    shape.setDraggable(false);
+  });
+}
+
 var oldPos = {};
 var down = false;
 var firstPos = {};
@@ -253,8 +250,11 @@ document.getElementById("ShapeContainer").addEventListener('mousemove', toDraw);
 
 document.getElementById("ShapeContainer").addEventListener('mouseup', function (e) {
   down = false;
-  oldcircle = undefined;
-  update(2);
+  if (document.getElementById("resizecircle").style.background === "grey") {
+    update(2);
+    shapes.push(oldcircle);
+    oldcircle = undefined;
+  }
 });
 
 var oldcircle;
@@ -288,7 +288,7 @@ function toDraw(e) {
           radius: Math.sqrt((posX - firstPos.x) * (posX - firstPos.x) + (posY - firstPos.y) * (posY - firstPos.y)),
           stroke: 'black',
           strokeWidth: 2,
-          draggable: true
+          draggable: false
         });
         circle.on('click', function () {
           protocircle.color(this);
