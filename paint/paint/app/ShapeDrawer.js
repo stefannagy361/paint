@@ -175,7 +175,7 @@ function getColorButton() {
   if (document.getElementById("black").style.border === "2px solid black")
     return 'black';
 
-  return 'white';
+  return 'black';
 }
 
 function buttonsNotSelected() {
@@ -215,11 +215,16 @@ document.getElementById("delete").onclick = function () {
   document.getElementById("circle").style.background = "#fff";
   document.getElementById("rectangle").style.background = "#fff";
   document.getElementById("square").style.background = "#fff";
+  document.getElementById("pencil").style.background = "#fff";
+  document.getElementById("resizecircle").style.background = "#fff";
+  document.getElementById("move").style.background = "#fff";
 
   document.getElementById("info1").innerHTML = "- 0";
   document.getElementById("info2").innerHTML = "- 0";
   document.getElementById("info3").innerHTML = "- 0";
   document.getElementById("info4").innerHTML = "- 0";
+
+  shapes = [];
   layer.destroy();
 }
 
