@@ -256,11 +256,11 @@ document.getElementById("ShapeContainer").addEventListener('mousemove', toDraw);
 document.getElementById("ShapeContainer").addEventListener('mouseup', function (e) {
   down = false;
   if (document.getElementById("resizecircle").style.background === "grey") {
-      if (oldcircle) {
-    update(2);
-    shapes.push(oldcircle);
-    oldcircle = undefined;
-  }
+    if (oldcircle) {
+      update(2);
+      shapes.push(oldcircle);
+      oldcircle = undefined;
+    }
   }
 });
 
