@@ -1,0 +1,102 @@
+﻿<div class="container-fluid" style="height:95vh">
+  <div class="row content" style="height: 100%">
+    <div class="col-sm-8" style="height: 100%">
+      <h1>Paint</h1>
+      <div style="width: 700px; height: 650px">
+        <button type="button" class="btn btn-default" id="triangle">
+          <span class="glyphicon glyphicon-triangle-top"></span>
+        </button>
+        <button type="button" class="btn btn-default" id="circle">
+          <span class="glyphicon glyphicon-adjust"></span>
+        </button>
+        <button type="button" class="btn btn-default" id="rectangle">
+          <span class="glyphicon glyphicon-minus"></span>
+        </button>
+        <button type="button" class="btn btn-default" id="square">
+          <span class="glyphicon glyphicon-stop"></span>
+        </button>
+        <button type="button" class="btn btn-default" id="pencil">
+          <span class="glyphicon glyphicon-pencil"></span>
+        </button>
+        <button type="button" class="btn btn-default" id="resizecircle">
+          <span class="glyphicon glyphicon-plus-sign"></span>
+        </button>
+        <button type="button" class="btn btn-default" id="move">
+          <span class="glyphicon glyphicon-move"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-color margin white" id="white"></button>
+        <button type="button" class="btn btn-default btn-color red" id="red"></button>
+        <button type="button" class="btn btn-default btn-color yellow" id="yellow"></button>
+        <button type="button" class="btn btn-default btn-color green" id="green"></button>
+        <button type="button" class="btn btn-default btn-color blue" id="blue"></button>
+        <button type="button" class="btn btn-default btn-color black" id="black"></button>
+        <button type="button" class="btn btn-default pull-right" id="delete">
+          <span class="glyphicon glyphicon-trash"></span>
+        </button>
+        <div class="bordered" id="ShapeContainer"></div>
+      </div>
+
+    </div>
+    <div class="col-sm-4" style="height:100%">
+      <h1>Legend</h1>
+      <div class="legend" id="ShapeLegend">
+        <script>
+          var stage = new Konva.Stage({
+            container: 'ShapeLegend',
+            width: 70,
+            height: 650
+          });
+
+          var layer = new Konva.Layer();
+
+          var circle = new Konva.Circle({
+            x: 20 + document.getElementById("ShapeLegend").offsetLeft,
+            y: 20 + document.getElementById("ShapeLegend").offsetTop,
+            radius: 30,
+            stroke: 'black',
+            strokeWidth: 2
+          });
+
+          layer.add(circle);
+
+          var triangle = new Konva.RegularPolygon({
+            x: 20 + document.getElementById("ShapeLegend").offsetLeft,
+            y: 120 + document.getElementById("ShapeLegend").offsetTop,
+            sides: 3,
+            radius: 30,
+            stroke: 'black',
+            strokeWidth: 2
+          });
+
+          layer.add(triangle);
+
+          var square = new Konva.Rect({
+            x: -10 + document.getElementById("ShapeLegend").offsetLeft,
+            y: 190 + document.getElementById("ShapeLegend").offsetTop,
+            width: 60,
+            height: 60,
+            stroke: 'black',
+            strokeWidth: 2
+          });
+
+          layer.add(square);
+
+          var rectangle = new Konva.Rect({
+            x: -10 + document.getElementById("ShapeLegend").offsetLeft,
+            y: 305 + document.getElementById("ShapeLegend").offsetTop,
+            width: 60,
+            height: 30,
+            stroke: 'black',
+            strokeWidth: 2
+          });
+          layer.add(rectangle);
+          stage.add(layer);
+        </script>
+      </div>
+      <span id="info1" class="info1">- 0</span>
+      <span id="info2" class="info2">- 0</span>
+      <span id="info3" class="info3">- 0</span>
+      <span id="info4" class="info4">- 0</span>
+    </div>
+  </div>
+</div>
