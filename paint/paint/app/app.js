@@ -5,14 +5,14 @@
 
   config.$inject = ['$stateProvider'];
   function config($stateProvider) {
-    $stateProvider.state('canvas', {
-      templateUrl: 'app/templates/canvas.tpl.html',
+    $stateProvider.state('main', {
+      templateUrl: 'app/templates/main.tpl.html',
       controller: 'MainController'
     });
   }
 
   run.$inject = ['$state'];
   function run($state) {
-    $state.go('canvas');
+    $state.go('main');
   }
 })(angular);

@@ -1,12 +1,4 @@
-﻿var stage = new Konva.Stage({
-  container: 'ShapeContainer',
-  width: 700,
-  height: 650
-});
-
-var layer = new Konva.Layer();
-
-function Shape() {
+﻿function Shape() {
   this.fill = 'white';
 }
 
@@ -44,117 +36,7 @@ Square.prototype = new Shape();
 
 var shapes = [];
 
-Square.prototype.draw = function (clickX, clickY) {
-  this.x = clickX;
-  this.y = clickY;
-  var RectWidth = 100;
-  var RectHeight = 100;
-  var square = new Konva.Rect({
-    x: clickX - RectWidth / 2,
-    y: clickY - RectHeight / 2,
-    width: RectWidth,
-    height: RectHeight,
-    stroke: 'black',
-    strokeWidth: 2,
-    draggable: false
-  });
-
-  var that = this;
-  square.on('click', function () {
-    that.color(this);
-  });
-
-  update(4);
-  shapes.push(square);
-  layer.add(square);
-  stage.add(layer);
-}
-
-Rectangle.prototype.draw = function (clickX, clickY) {
-  this.x = clickX;
-  this.y = clickY;
-  var RectWidth = 100;
-  var RectHeight = 50;
-  var rectangle = new Konva.Rect({
-    x: clickX - RectWidth / 2,
-    y: clickY - RectHeight / 2,
-    width: RectWidth,
-    height: RectHeight,
-    stroke: 'black',
-    strokeWidth: 2,
-    draggable: false
-
-  });
-
-  var that = this;
-  rectangle.on('click', function () {
-    that.color(this);
-  });
-
-  update(3);
-  shapes.push(rectangle);
-  layer.add(rectangle);
-  stage.add(layer);
-}
-
-Circle.prototype.draw = function (clickX, clickY) {
-  this.x = clickX;
-  this.y = clickY;
-  var circle = new Konva.Circle({
-    x: clickX,
-    y: clickY,
-    radius: 70,
-    stroke: 'black',
-    strokeWidth: 2,
-    draggable: false
-  });
-  var that = this;
-  circle.on('click', function () {
-    that.color(this);
-  });
-
-  update(2);
-  shapes.push(circle);
-  layer.add(circle);
-  stage.add(layer);
-}
-
-var corners = 0;
-Triangle.prototype.draw = function(clickX, clickY){ 
-  if(corners == 0){
-    this.x1 = clickX;
-    this.y1 = clickY;
-    corners++;
-  }
-  else if (corners == 1) {
-    this.x2 = clickX;
-    this.y2 = clickY;
-    corners++;
-  }
-  else if(corners == 2)
-  {
-    this.x3 = clickX;
-    this.y3 = clickY;
-    var triangle = new Konva.Line({
-      points: [this.x1, this.y1, this.x2, this.y2, this.x3, this.y3, this.x1, this.y1],
-      stroke: 'black',
-      strokewidth: 1,
-      closed: true,
-      draggable: false
-    });
-    var that = this;
-    triangle.on('click', function () {
-      that.color(this);
-    });
-    layer.add(triangle);
-    stage.add(layer);
-    shapes.push(triangle);
-    corners = 0;
-    update(1);
-  }
-}
-
-Shape.prototype.color = function (shape) {
+Shape.prototype.color = function (shape, layer) {
   if (buttonsNotSelected()) {
     shape.fill(getColorButton());
     layer.draw();
@@ -192,40 +74,104 @@ function buttonsNotSelected() {
   return true;
 }
 
-function update(id) {
-  if (id == 1) {
-    document.getElementById("info1").innerHTML = "- " + (parseInt(document.getElementById("info1").innerHTML.substring(2)) + 1);
-  }
-  else
-    if (id == 2) {
-      document.getElementById("info2").innerHTML = "- " + (parseInt(document.getElementById("info2").innerHTML.substring(2)) + 1);
-    }
-    else
-      if (id == 3) {
-        document.getElementById("info3").innerHTML = "- " + (parseInt(document.getElementById("info3").innerHTML.substring(2)) + 1);
-      }
-      else
-        if (id == 4) {
-          document.getElementById("info4").innerHTML = "- " + (parseInt(document.getElementById("info4").innerHTML.substring(2)) + 1);
-        }
+Square.prototype.draw = function (clickX, clickY, stage, layer) {
+  this.x = clickX;
+  this.y = clickY;
+  var RectWidth = 100;
+  var RectHeight = 100;
+  var square = new Konva.Rect({
+    x: clickX - RectWidth / 2,
+    y: clickY - RectHeight / 2,
+    width: RectWidth,
+    height: RectHeight,
+    stroke: 'black',
+    strokeWidth: 2,
+    draggable: false
+  });
+
+  var that = this;
+  square.on('click', function () {
+    that.color(this, layer);
+  });
+  shapes.push(square);
+  return square;
 }
 
-document.getElementById("delete").onclick = function () {
-  document.getElementById("triangle").style.background = "#fff";
-  document.getElementById("circle").style.background = "#fff";
-  document.getElementById("rectangle").style.background = "#fff";
-  document.getElementById("square").style.background = "#fff";
-  document.getElementById("pencil").style.background = "#fff";
-  document.getElementById("resizecircle").style.background = "#fff";
-  document.getElementById("move").style.background = "#fff";
+Rectangle.prototype.draw = function (clickX, clickY, stage, layer) {
+  this.x = clickX;
+  this.y = clickY;
+  var RectWidth = 100;
+  var RectHeight = 50;
+  var rectangle = new Konva.Rect({
+    x: clickX - RectWidth / 2,
+    y: clickY - RectHeight / 2,
+    width: RectWidth,
+    height: RectHeight,
+    stroke: 'black',
+    strokeWidth: 2,
+    draggable: false
+  });
 
-  document.getElementById("info1").innerHTML = "- 0";
-  document.getElementById("info2").innerHTML = "- 0";
-  document.getElementById("info3").innerHTML = "- 0";
-  document.getElementById("info4").innerHTML = "- 0";
+  var that = this;
+  rectangle.on('click', function () {
+    that.color(this, layer);
+  });
 
-  shapes = [];
-  layer.destroy();
+  shapes.push(rectangle);
+  return rectangle;
+}
+
+Circle.prototype.draw = function (clickX, clickY, stage, layer) {
+  this.x = clickX;
+  this.y = clickY;
+  var circle = new Konva.Circle({
+    x: clickX,
+    y: clickY,
+    radius: 70,
+    stroke: 'black',
+    strokeWidth: 2,
+    draggable: false
+  });
+  var that = this;
+  circle.on('click', function () {
+    that.color(this, layer);
+  });
+
+  shapes.push(circle);
+  return circle;
+}
+
+var corners = 0;
+Triangle.prototype.draw = function(clickX, clickY, stage, layer){ 
+  if(corners == 0){
+    this.x1 = clickX;
+    this.y1 = clickY;
+    corners++;
+  }
+  else if (corners == 1) {
+    this.x2 = clickX;
+    this.y2 = clickY;
+    corners++;
+  }
+  else if(corners == 2)
+  {
+    this.x3 = clickX;
+    this.y3 = clickY;
+    var triangle = new Konva.Line({
+      points: [this.x1, this.y1, this.x2, this.y2, this.x3, this.y3, this.x1, this.y1],
+      stroke: 'black',
+      strokewidth: 1,
+      closed: true,
+      draggable: false
+    });
+    var that = this;
+    triangle.on('click', function () {
+      that.color(this, layer);
+    });
+    shapes.push(triangle);
+    corners = 0;
+    return triangle;
+  }
 }
 
 function turnMovableOn() {
@@ -240,36 +186,9 @@ function turnMovableOff() {
   });
 }
 
-var oldPos = {};
-var down = false;
-var firstPos = {};
-
-document.getElementById("ShapeContainer").addEventListener('mousedown', function (e) {
-  down = true;
-  oldPos.x = e.pageX - this.offsetLeft;
-  oldPos.y = e.pageY - this.offsetTop;
-  firstPos.x = oldPos.x;
-  firstPos.y = oldPos.y;
-});
-document.getElementById("ShapeContainer").addEventListener('mousemove', toDraw);
-
-document.getElementById("ShapeContainer").addEventListener('mouseup', function (e) {
-  down = false;
-  if (document.getElementById("resizecircle").style.background === "grey") {
-    if (oldcircle) {
-      update(2);
-      shapes.push(oldcircle);
-      oldcircle = undefined;
-    }
-  }
-});
-
 var oldcircle;
 
-function toDraw(e) {
-  var posX = e.pageX - this.offsetLeft;
-  var posY = e.pageY - this.offsetTop;
-
+function toDraw(posX, posY, down, oldPos, firstPos, stage, layer) {
   if (document.getElementById("pencil").style.background === "grey") {
     if (down == true) {
       var line = new Konva.Line({
@@ -287,7 +206,7 @@ function toDraw(e) {
     if (document.getElementById("resizecircle").style.background === "grey") {
       if (down == true) {
         var protocircle = new Circle();
-        if(oldcircle)
+        if (oldcircle)
           oldcircle.destroy();
         var circle = new Konva.Circle({
           x: firstPos.x,
@@ -298,7 +217,7 @@ function toDraw(e) {
           draggable: false
         });
         circle.on('click', function () {
-          protocircle.color(this);
+          protocircle.color(this, layer);
         });
         oldPos.x = posX;
         oldPos.y = posY;

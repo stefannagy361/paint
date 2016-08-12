@@ -5,6 +5,9 @@
   display: block;
   margin-top: 10px;
 }
+.bggrey {
+  background: grey;
+}
 .bordered {
   width: 700px;
   height: 650px;

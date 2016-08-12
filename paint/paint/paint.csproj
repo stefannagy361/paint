@@ -64,9 +64,10 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\controllers\main.controller.js" />
-    <Content Include="app\directives\konva.directive.js" />
+    <Content Include="app\directives\custom-canvas.directive.js" />
     <Content Include="app\ShapeDrawer.js" />
     <Content Include="app\templates\canvas.tpl.html" />
+    <Content Include="app\templates\main.tpl.html" />
     <Content Include="assets\css\main.css" />
     <Content Include="bower_components\angular-bootstrap\.gitignore" />
     <Content Include="bower_components\angular-bootstrap\index.js" />
@@ -10683,7 +10684,9 @@
     <Content Include="bower_components\angular-ui-router\LICENSE" />
     <Content Include="bower_components\angular-ui-router\README.md" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="app\factories\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
