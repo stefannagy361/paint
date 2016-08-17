@@ -65,6 +65,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\controllers\main.controller.js" />
     <Content Include="app\directives\custom-canvas.directive.js" />
+    <Content Include="app\services\canvas.service.js" />
     <Content Include="app\ShapeDrawer.js" />
     <Content Include="app\templates\canvas.tpl.html" />
     <Content Include="app\templates\main.tpl.html" />

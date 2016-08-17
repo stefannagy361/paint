@@ -2,15 +2,19 @@
   angular.module("app")
     .directive("customCanvas", customCanvasFn);
 
-  function customCanvasFn() {
+  customCanvasFn.$inject = ['canvasService'];
+  function customCanvasFn(canvasService) {
     return {
       templateUrl: "app/templates/canvas.tpl.html",
-      restrict: "AEC",
+      restrict: "A",
       scope: {
-        shapes: "="
+        'buttons': "="
       },
       link: function (scope, element, attributes) {
-        angular.element("#ShapeContainer");
+        canvasService.init(scope);
+        scope.canvasClick = function (e) {
+          canvasService.mousePos(e);
+        };
       }
     };
   }

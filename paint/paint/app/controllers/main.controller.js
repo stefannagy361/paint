@@ -1,46 +1,58 @@
 ﻿(function (angular) {
   angular.module('app')
-    .controller('MainController', MainController);
+    .controller('MainController', ['$scope', 'canvasService', MainController]);
 
-  function MainController($scope) {
-    $scope.button = {
-      btnClass: "btn btn-default"
-    };
-    $scope.circles = 0;
-    $scope.triangles = 0;
-    $scope.squares = 0;
-    $scope.rectangles = 0;
-    $scope.buttons = ['triangle', 'circle', 'rectangle', 'square', 'pencil', 'resizecircle', 'move'];
-    $scope.colorButtons = ['white', 'red', 'yellow', 'green', 'blue', 'black'];
+  function MainController($scope, canvasService) {
+    $scope.buttons = {};
+    buttonsOff();
+    $scope.colorButtons = {};
+    btnBordersOff();
 
     $scope.selectButton = function (e) {
+      canvasService.initScope($scope.buttons, $scope.colorButtons);
       var btnObj;
       if (e.target.tagName == "BUTTON")
         btnObj = e.target;
       else
         btnObj = e.target.parentElement;
 
-      if (btnObj.style.background == "grey")
-        btnObj.style = background = "#fff";
+      if ($scope.buttons[btnObj.id] == "grey") {
+        $scope.buttons[btnObj.id] = "white";
+      }
       else {
-        $scope.buttons.forEach(function (button) {
-          document.getElementById(button).style.background = "#fff";
-        });
+        buttonsOff();
         turnMovableOff();
-        btnObj.style.background = "grey";
+        $scope.buttons[btnObj.id] = "grey";
       }
     };
+
+    function buttonsOff() {
+      $scope.buttons["square"] = "white";
+      $scope.buttons["triangle"] = "white";
+      $scope.buttons["rectangle"] = "white";
+      $scope.buttons["circle"] = "white";
+      $scope.buttons["pencil"] = "white";
+      $scope.buttons["resizecircle"] = "white";
+      $scope.buttons["move"] = "white";
+    }
+
+    function btnBordersOff() {
+      $scope.colorButtons["white"] = "off";
+      $scope.colorButtons["red"] = "off";
+      $scope.colorButtons["yellow"] = "off";
+      $scope.colorButtons["green"] = "off";
+      $scope.colorButtons["blue"] = "off";
+      $scope.colorButtons["black"] = "off";
+    }
 
     $scope.colorButton = function (e) {
       var colorButton = e.target;
 
-      if(colorButton.style.border === "2px solid black")
-        colorButton.style.border = "1px solid #ccc";
+      if ($scope.colorButtons[colorButton.id] === "on")
+        $scope.colorButtons[colorButton.id] = "off";
       else {
-        $scope.colorButtons.forEach(function (colbtn) {
-          document.getElementById(colbtn).style.border = "1px solid #ccc";
-        });
-        colorButton.style.border = "2px solid black";
+        btnBordersOff();
+        $scope.colorButtons[colorButton.id] = "2px solid black";
       }
     };
 
@@ -51,71 +63,17 @@
       else
         btnObj = e.target.parentElement;
 
-      if (btnObj.style.background === 'grey') {
-        btnObj.style.background = '#fff';
+      if ($scope.buttons[btnObj.id] === 'grey') {
+        $scope.buttons[btnObj.id] = 'white';
         turnMovableOff();
       }
       else {
-        $scope.buttons.forEach(function (button) {
-          document.getElementById(button).style.background = "#fff";
-        });
-        btnObj.style.background = 'grey';
+        buttonsOff();
+        $scope.buttons[btnObj.id] = "grey";
         turnMovableOn();
       }
     };
 
-    $scope.mousePos = function (e) {
-      var clickX = e.pageX - document.getElementById("ShapeContainer").offsetLeft;
-      var clickY = e.pageY - document.getElementById("ShapeContainer").offsetTop;
-
-      draw(clickX, clickY);
-    };
-
-    $scope.triangle = new Triangle();
-    $scope.circle = new Circle();
-    $scope.rectangle = new Rectangle();
-    $scope.square = new Square();
-
-    var stage = new Konva.Stage({
-      container: angular.element('#ShapeContainer'),
-      width: 700,
-      height: 650
-    });
-    var layer = new Konva.Layer();
-    var corners = 0;
-
-    function draw(clickX, clickY) {
-      if (document.getElementById("triangle").style.background == "grey") {
-        if (corners < 2) {
-          $scope.triangle.draw(clickX, clickY, stage, layer);
-          corners++;
-        }
-        else {
-          layer.add($scope.triangle.draw(clickX, clickY, stage, layer));
-          stage.add(layer);
-          corners = 0;
-          $scope.triangles++;
-        }
-      }
-      else
-        if (document.getElementById("circle").style.background == "grey") {
-          layer.add($scope.circle.draw(clickX, clickY, stage, layer));
-          stage.add(layer);
-          $scope.circles++;
-        }
-        else
-          if (document.getElementById("rectangle").style.background == "grey") {
-            layer.add($scope.rectangle.draw(clickX, clickY, stage, layer));
-            stage.add(layer);
-            $scope.rectangles++;
-          }
-          else
-            if (document.getElementById("square").style.background == "grey") {
-              layer.add($scope.square.draw(clickX, clickY, stage, layer));
-              stage.add(layer);
-              $scope.squares++;
-            }
-    };
     var oldPos = {};
     var down = false;
     var firstPos = {};
@@ -137,7 +95,6 @@
       down = false;
       if (document.getElementById("resizecircle").style.background === "grey") {
         if (oldcircle) {
-          $scope.circles++;
           shapes.push(oldcircle);
           oldcircle = undefined;
         }
@@ -147,10 +104,6 @@
     $scope.delete = function () {
       shapes = [];
       layer.destroy();
-      $scope.circles = 0;
-      $scope.squares = 0;
-      $scope.triangles = 0;
-      $scope.rectangles = 0;
     };
   }
 })(angular);

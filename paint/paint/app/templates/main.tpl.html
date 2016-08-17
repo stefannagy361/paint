@@ -3,100 +3,38 @@
     <div class="col-sm-8" style="height: 100%">
       <h1>Paint</h1>
       <div style="width: 700px; height: 650px">
-        <button type="button" class="btn btn-default" id=" triangle" ng-click="selectButton($event)">
+        <button type="button" class="btn btn-default" ng-class="buttons['triangle']==='white' ? 'bgwhite' : 'bggrey'" id="triangle" ng-click="selectButton($event)">
           <span class="glyphicon glyphicon-triangle-top"></span>
         </button>
-        <button type="button" class="btn btn-default" id="circle" ng-click="selectButton($event)">
+        <button type="button" class="btn btn-default" ng-class="buttons['circle']==='white' ? 'bgwhite' : 'bggrey'" id="circle" ng-click="selectButton($event)">
           <span class="glyphicon glyphicon-adjust"></span>
         </button>
-        <button type="button" class="btn btn-default" id="rectangle" ng-click="selectButton($event)">
+        <button type="button" class="btn btn-default" ng-class="buttons['rectangle']==='white' ? 'bgwhite' : 'bggrey'" id="rectangle" ng-click="selectButton($event)">
           <span class="glyphicon glyphicon-minus"></span>
         </button>
-        <button type="button" class="btn btn-default" id="square" ng-click="selectButton($event)">
+        <button type="button" class="btn btn-default" ng-class="buttons['square']==='white' ? 'bgwhite' : 'bggrey'" id="square" ng-click="selectButton($event)">
           <span class="glyphicon glyphicon-stop"></span>
         </button>
-        <button type="button" class="btn btn-default" id="pencil" ng-click="selectButton($event)">
+        <button type="button" class="btn btn-default" ng-class="buttons['pencil']==='white' ? 'bgwhite' : 'bggrey'" id="pencil" ng-click="selectButton($event)">
           <span class="glyphicon glyphicon-pencil"></span>
         </button>
-        <button type="button" class="btn btn-default" id="resizecircle" ng-click="selectButton($event)">
+        <button type="button" class="btn btn-default" ng-class="buttons['resizecircle']==='white' ? 'bgwhite' : 'bggrey'" id="resizecircle" ng-click="selectButton($event)">
           <span class="glyphicon glyphicon-plus-sign"></span>
         </button>
-        <button type="button" class="btn btn-default" id="move" ng-click="moveButton($event)">
+        <button type="button" class="btn btn-default" ng-class="buttons['move']==='white' ? 'bgwhite' : 'bggrey'" id="move" ng-click="moveButton($event)">
           <span class="glyphicon glyphicon-move"></span>
         </button>
-        <button type="button" class="btn btn-default btn-color margin white" id="white" ng-click="colorButton($event)"></button>
-        <button type="button" class="btn btn-default btn-color red" id="red" ng-click="colorButton($event)"></button>
-        <button type="button" class="btn btn-default btn-color yellow" id="yellow" ng-click="colorButton($event)"></button>
-        <button type="button" class="btn btn-default btn-color green" id="green" ng-click="colorButton($event)"></button>
-        <button type="button" class="btn btn-default btn-color blue" id="blue" ng-click="colorButton($event)"></button>
-        <button type="button" class="btn btn-default btn-color black" id="black" ng-click="colorButton($event)"></button>
+        <button type="button" class="btn btn-default btn-color margin white" ng-class="colorButtons['white']==='off' ? 'border-off' : 'border-on'" id="white" ng-click="colorButton($event)"></button>
+        <button type="button" class="btn btn-default btn-color red" id="red" ng-class="colorButtons['red']==='off' ? 'border-off' : 'border-on'" ng-click="colorButton($event)"></button>
+        <button type="button" class="btn btn-default btn-color yellow" ng-class="colorButtons['yellow']==='off' ? 'border-off' : 'border-on'" id="yellow" ng-click="colorButton($event)"></button>
+        <button type="button" class="btn btn-default btn-color green" ng-class="colorButtons['green']==='off' ? 'border-off' : 'border-on'" id="green" ng-click="colorButton($event)"></button>
+        <button type="button" class="btn btn-default btn-color blue" ng-class="colorButtons['blue']==='off' ? 'border-off' : 'border-on'" id="blue" ng-click="colorButton($event)"></button>
+        <button type="button" class="btn btn-default btn-color black" ng-class="colorButtons['black']==='off' ? 'border-off' : 'border-on'" id="black" ng-click="colorButton($event)"></button>
         <button type="button" class="btn btn-default pull-right" id="delete" ng--click="delete()">
           <span class="glyphicon glyphicon-trash"></span>
         </button>
-        <custom-canvas></custom-canvas>
+        <div custom-canvas mouse-pos="mousePos($event)"></div>
       </div>
-
-    </div>
-    <div class="col-sm-4" style="height:100%">
-      <h1>Legend</h1>
-      <div class="legend" id="ShapeLegend">
-        <script>
-          var stage = new Konva.Stage({
-            container: 'ShapeLegend',
-            width: 70,
-            height: 650
-          });
-
-          var layer = new Konva.Layer();
-
-          var circle = new Konva.Circle({
-            x: 20 + document.getElementById("ShapeLegend").offsetLeft,
-            y: 20 + document.getElementById("ShapeLegend").offsetTop,
-            radius: 30,
-            stroke: 'black',
-            strokeWidth: 2
-          });
-
-          layer.add(circle);
-
-          var triangle = new Konva.RegularPolygon({
-            x: 20 + document.getElementById("ShapeLegend").offsetLeft,
-            y: 120 + document.getElementById("ShapeLegend").offsetTop,
-            sides: 3,
-            radius: 30,
-            stroke: 'black',
-            strokeWidth: 2
-          });
-
-          layer.add(triangle);
-
-          var square = new Konva.Rect({
-            x: -10 + document.getElementById("ShapeLegend").offsetLeft,
-            y: 190 + document.getElementById("ShapeLegend").offsetTop,
-            width: 60,
-            height: 60,
-            stroke: 'black',
-            strokeWidth: 2
-          });
-
-          layer.add(square);
-
-          var rectangle = new Konva.Rect({
-            x: -10 + document.getElementById("ShapeLegend").offsetLeft,
-            y: 305 + document.getElementById("ShapeLegend").offsetTop,
-            width: 60,
-            height: 30,
-            stroke: 'black',
-            strokeWidth: 2
-          });
-          layer.add(rectangle);
-          stage.add(layer);
-        </script>
-      </div>
-      <span id="info1" class="info1">{{"- " + triangles}}</span>
-      <span id="info2" class="info2">{{"- " + circles}}</span>
-      <span id="info3" class="info3">{{"- " + rectangles}}</span>
-      <span id="info4" class="info4">{{"- " + squares}}</span>
     </div>
   </div>
 </div>
